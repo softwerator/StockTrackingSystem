@@ -1,0 +1,1 @@
+﻿DBCC CHECKIDENT ('dbo.tblOda', RESEED, 47)

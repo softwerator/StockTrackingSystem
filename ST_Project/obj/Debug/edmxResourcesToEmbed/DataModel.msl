@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="YazilimSinamaModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="tblBelgeler">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblBelgeler">
+        <MappingFragment StoreEntitySet="tblBelgeler">
+          <ScalarProperty Name="BelgeID" ColumnName="BelgeID" />
+          <ScalarProperty Name="BelgeAdi" ColumnName="BelgeAdi" />
+          <ScalarProperty Name="BelgeOlusturulmaTarihi" ColumnName="BelgeOlusturulmaTarihi" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="BelgeCiktisi" ColumnName="BelgeCiktisi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDemirbas">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblDemirbas">
+        <MappingFragment StoreEntitySet="tblDemirbas">
+          <ScalarProperty Name="DemirbasID" ColumnName="DemirbasID" />
+          <ScalarProperty Name="DemirbasAdi" ColumnName="DemirbasAdi" />
+          <ScalarProperty Name="DemirbasKodu" ColumnName="DemirbasKodu" />
+          <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+          <ScalarProperty Name="AlimTarihi" ColumnName="AlimTarihi" />
+          <ScalarProperty Name="DemirbasTuruID" ColumnName="DemirbasTuruID" />
+          <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+          <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDemirbasTuru">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblDemirbasTuru">
+        <MappingFragment StoreEntitySet="tblDemirbasTuru">
+          <ScalarProperty Name="DemirbasTuruID" ColumnName="DemirbasTuruID" />
+          <ScalarProperty Name="DemirbasTuruAdi" ColumnName="DemirbasTuruAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDepartman">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblDepartman">
+        <MappingFragment StoreEntitySet="tblDepartman">
+          <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+          <ScalarProperty Name="DepartmanAdi" ColumnName="DepartmanAdi" />
+          <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblFakulte">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblFakulte">
+        <MappingFragment StoreEntitySet="tblFakulte">
+          <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+          <ScalarProperty Name="FakulteAdi" ColumnName="FakulteAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblKullanici">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblKullanici">
+        <MappingFragment StoreEntitySet="tblKullanici">
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="YetkiliID" ColumnName="YetkiliID" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOda">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblOda">
+        <MappingFragment StoreEntitySet="tblOda">
+          <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+          <ScalarProperty Name="OdaAdi" ColumnName="OdaAdi" />
+          <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOdaDemirbasAtama">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblOdaDemirbasAtama">
+        <MappingFragment StoreEntitySet="tblOdaDemirbasAtama">
+          <ScalarProperty Name="OdaDemirbasAtamaID" ColumnName="OdaDemirbasAtamaID" />
+          <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+          <ScalarProperty Name="DemirbasID" ColumnName="DemirbasID" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+          <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPersonel">
+      <EntityTypeMapping TypeName="YazilimSinamaModel.tblPersonel">
+        <MappingFragment StoreEntitySet="tblPersonel">
+          <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+          <ScalarProperty Name="PersonelAdi" ColumnName="PersonelAdi" />
+          <ScalarProperty Name="PersonelSoyadi" ColumnName="PersonelSoyadi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

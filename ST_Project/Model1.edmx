@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="YazilimSinamaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblBelgeler">
+          <Key>
+            <PropertyRef Name="BelgeID" />
+          </Key>
+          <Property Name="BelgeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BelgeAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="BelgeOlusturulmaTarihi" Type="datetime" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="BelgeYolu" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDemirbas">
+          <Key>
+            <PropertyRef Name="DemirbasID" />
+          </Key>
+          <Property Name="DemirbasID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DemirbasAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DemirbasKodu" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Fiyat" Type="money" Nullable="false" />
+          <Property Name="AlimTarihi" Type="date" Nullable="false" />
+          <Property Name="DemirbasTuruID" Type="int" Nullable="false" />
+          <Property Name="FakulteID" Type="int" Nullable="false" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+          <Property Name="Adet" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDemirbasTuru">
+          <Key>
+            <PropertyRef Name="DemirbasTuruID" />
+          </Key>
+          <Property Name="DemirbasTuruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DemirbasTuruAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDepartman">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DepartmanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmanAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FakulteID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFakulte">
+          <Key>
+            <PropertyRef Name="FakulteID" />
+          </Key>
+          <Property Name="FakulteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FakulteAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonelID" Type="int" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="YetkiliID" Type="bit" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOda">
+          <Key>
+            <PropertyRef Name="OdaID" />
+          </Key>
+          <Property Name="OdaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OdaAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DepartmanID" Type="int" Nullable="false" />
+          <Property Name="PersonelID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblOdaDemirbasAtama">
+          <Key>
+            <PropertyRef Name="OdaDemirbasAtamaID" />
+          </Key>
+          <Property Name="OdaDemirbasAtamaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OdaID" Type="int" />
+          <Property Name="DemirbasID" Type="int" />
+          <Property Name="Adet" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPersonel">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+          </Key>
+          <Property Name="PersonelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonelAdi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PersonelSoyadi" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblBelgeler_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblBelgeler" Type="Self.tblBelgeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="tblBelgeler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblDemirbasTuru">
+          <End Role="tblDemirbasTuru" Type="Self.tblDemirbasTuru" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDemirbasTuru">
+              <PropertyRef Name="DemirbasTuruID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="DemirbasTuruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblDepartman">
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartman">
+              <PropertyRef Name="DepartmanID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="DepartmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblFakulte">
+          <End Role="tblFakulte" Type="Self.tblFakulte" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFakulte">
+              <PropertyRef Name="FakulteID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="FakulteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartman_tblFakulte">
+          <End Role="tblFakulte" Type="Self.tblFakulte" Multiplicity="1" />
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFakulte">
+              <PropertyRef Name="FakulteID" />
+            </Principal>
+            <Dependent Role="tblDepartman">
+              <PropertyRef Name="FakulteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKullanici_tblPersonel">
+          <End Role="tblPersonel" Type="Self.tblPersonel" Multiplicity="1" />
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersonel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="tblKullanici">
+              <PropertyRef Name="PersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOda_tblDepartman">
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="1" />
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartman">
+              <PropertyRef Name="DepartmanID" />
+            </Principal>
+            <Dependent Role="tblOda">
+              <PropertyRef Name="DepartmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOda_tblPersonel">
+          <End Role="tblPersonel" Type="Self.tblPersonel" Multiplicity="0..1" />
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersonel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="tblOda">
+              <PropertyRef Name="PersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOdaDemirbasAtama_tblDemirbas">
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="0..1" />
+          <End Role="tblOdaDemirbasAtama" Type="Self.tblOdaDemirbasAtama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDemirbas">
+              <PropertyRef Name="DemirbasID" />
+            </Principal>
+            <Dependent Role="tblOdaDemirbasAtama">
+              <PropertyRef Name="DemirbasID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOdaDemirbasAtama_tblOda">
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="0..1" />
+          <End Role="tblOdaDemirbasAtama" Type="Self.tblOdaDemirbasAtama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOda">
+              <PropertyRef Name="OdaID" />
+            </Principal>
+            <Dependent Role="tblOdaDemirbasAtama">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YazilimSinamaModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBelgeler" EntityType="Self.tblBelgeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDemirbas" EntityType="Self.tblDemirbas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDemirbasTuru" EntityType="Self.tblDemirbasTuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartman" EntityType="Self.tblDepartman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFakulte" EntityType="Self.tblFakulte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKullanici" EntityType="Self.tblKullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOda" EntityType="Self.tblOda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOdaDemirbasAtama" EntityType="Self.tblOdaDemirbasAtama" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPersonel" EntityType="Self.tblPersonel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblBelgeler_tblKullanici" Association="Self.FK_tblBelgeler_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblBelgeler" EntitySet="tblBelgeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblDemirbasTuru" Association="Self.FK_tblDemirbas_tblDemirbasTuru">
+            <End Role="tblDemirbasTuru" EntitySet="tblDemirbasTuru" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblDepartman" Association="Self.FK_tblDemirbas_tblDepartman">
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblFakulte" Association="Self.FK_tblDemirbas_tblFakulte">
+            <End Role="tblFakulte" EntitySet="tblFakulte" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartman_tblFakulte" Association="Self.FK_tblDepartman_tblFakulte">
+            <End Role="tblFakulte" EntitySet="tblFakulte" />
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKullanici_tblPersonel" Association="Self.FK_tblKullanici_tblPersonel">
+            <End Role="tblPersonel" EntitySet="tblPersonel" />
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOda_tblDepartman" Association="Self.FK_tblOda_tblDepartman">
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+            <End Role="tblOda" EntitySet="tblOda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOda_tblPersonel" Association="Self.FK_tblOda_tblPersonel">
+            <End Role="tblPersonel" EntitySet="tblPersonel" />
+            <End Role="tblOda" EntitySet="tblOda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOdaDemirbasAtama_tblDemirbas" Association="Self.FK_tblOdaDemirbasAtama_tblDemirbas">
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+            <End Role="tblOdaDemirbasAtama" EntitySet="tblOdaDemirbasAtama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOdaDemirbasAtama_tblOda" Association="Self.FK_tblOdaDemirbasAtama_tblOda">
+            <End Role="tblOda" EntitySet="tblOda" />
+            <End Role="tblOdaDemirbasAtama" EntitySet="tblOdaDemirbasAtama" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="YazilimSinamaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblBelgeler">
+          <Key>
+            <PropertyRef Name="BelgeID" />
+          </Key>
+          <Property Name="BelgeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BelgeAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BelgeOlusturulmaTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="BelgeYolu" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblKullanici" Relationship="Self.FK_tblBelgeler_tblKullanici" FromRole="tblBelgeler" ToRole="tblKullanici" />
+        </EntityType>
+        <EntityType Name="tblDemirbas">
+          <Key>
+            <PropertyRef Name="DemirbasID" />
+          </Key>
+          <Property Name="DemirbasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DemirbasAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DemirbasKodu" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fiyat" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="AlimTarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DemirbasTuruID" Type="Int32" Nullable="false" />
+          <Property Name="FakulteID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+          <Property Name="Adet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblDemirbasTuru" Relationship="Self.FK_tblDemirbas_tblDemirbasTuru" FromRole="tblDemirbas" ToRole="tblDemirbasTuru" />
+          <NavigationProperty Name="tblDepartman" Relationship="Self.FK_tblDemirbas_tblDepartman" FromRole="tblDemirbas" ToRole="tblDepartman" />
+          <NavigationProperty Name="tblFakulte" Relationship="Self.FK_tblDemirbas_tblFakulte" FromRole="tblDemirbas" ToRole="tblFakulte" />
+          <NavigationProperty Name="tblOdaDemirbasAtama" Relationship="Self.FK_tblOdaDemirbasAtama_tblDemirbas" FromRole="tblDemirbas" ToRole="tblOdaDemirbasAtama" />
+        </EntityType>
+        <EntityType Name="tblDemirbasTuru">
+          <Key>
+            <PropertyRef Name="DemirbasTuruID" />
+          </Key>
+          <Property Name="DemirbasTuruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DemirbasTuruAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblDemirbas" Relationship="Self.FK_tblDemirbas_tblDemirbasTuru" FromRole="tblDemirbasTuru" ToRole="tblDemirbas" />
+        </EntityType>
+        <EntityType Name="tblDepartman">
+          <Key>
+            <PropertyRef Name="DepartmanID" />
+          </Key>
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmanAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FakulteID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblDemirbas" Relationship="Self.FK_tblDemirbas_tblDepartman" FromRole="tblDepartman" ToRole="tblDemirbas" />
+          <NavigationProperty Name="tblFakulte" Relationship="Self.FK_tblDepartman_tblFakulte" FromRole="tblDepartman" ToRole="tblFakulte" />
+          <NavigationProperty Name="tblOda" Relationship="Self.FK_tblOda_tblDepartman" FromRole="tblDepartman" ToRole="tblOda" />
+        </EntityType>
+        <EntityType Name="tblFakulte">
+          <Key>
+            <PropertyRef Name="FakulteID" />
+          </Key>
+          <Property Name="FakulteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FakulteAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblDemirbas" Relationship="Self.FK_tblDemirbas_tblFakulte" FromRole="tblFakulte" ToRole="tblDemirbas" />
+          <NavigationProperty Name="tblDepartman" Relationship="Self.FK_tblDepartman_tblFakulte" FromRole="tblFakulte" ToRole="tblDepartman" />
+        </EntityType>
+        <EntityType Name="tblKullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonelID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YetkiliID" Type="Boolean" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblBelgeler" Relationship="Self.FK_tblBelgeler_tblKullanici" FromRole="tblKullanici" ToRole="tblBelgeler" />
+          <NavigationProperty Name="tblPersonel" Relationship="Self.FK_tblKullanici_tblPersonel" FromRole="tblKullanici" ToRole="tblPersonel" />
+        </EntityType>
+        <EntityType Name="tblOda">
+          <Key>
+            <PropertyRef Name="OdaID" />
+          </Key>
+          <Property Name="OdaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OdaAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmanID" Type="Int32" Nullable="false" />
+          <Property Name="PersonelID" Type="Int32" />
+          <NavigationProperty Name="tblDepartman" Relationship="Self.FK_tblOda_tblDepartman" FromRole="tblOda" ToRole="tblDepartman" />
+          <NavigationProperty Name="tblPersonel" Relationship="Self.FK_tblOda_tblPersonel" FromRole="tblOda" ToRole="tblPersonel" />
+          <NavigationProperty Name="tblOdaDemirbasAtama" Relationship="Self.FK_tblOdaDemirbasAtama_tblOda" FromRole="tblOda" ToRole="tblOdaDemirbasAtama" />
+        </EntityType>
+        <EntityType Name="tblOdaDemirbasAtama">
+          <Key>
+            <PropertyRef Name="OdaDemirbasAtamaID" />
+          </Key>
+          <Property Name="OdaDemirbasAtamaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OdaID" Type="Int32" />
+          <Property Name="DemirbasID" Type="Int32" />
+          <Property Name="Adet" Type="Int32" />
+          <NavigationProperty Name="tblDemirbas" Relationship="Self.FK_tblOdaDemirbasAtama_tblDemirbas" FromRole="tblOdaDemirbasAtama" ToRole="tblDemirbas" />
+          <NavigationProperty Name="tblOda" Relationship="Self.FK_tblOdaDemirbasAtama_tblOda" FromRole="tblOdaDemirbasAtama" ToRole="tblOda" />
+        </EntityType>
+        <EntityType Name="tblPersonel">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+          </Key>
+          <Property Name="PersonelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonelAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonelSoyadi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblKullanici" Relationship="Self.FK_tblKullanici_tblPersonel" FromRole="tblPersonel" ToRole="tblKullanici" />
+          <NavigationProperty Name="tblOda" Relationship="Self.FK_tblOda_tblPersonel" FromRole="tblPersonel" ToRole="tblOda" />
+        </EntityType>
+        <Association Name="FK_tblBelgeler_tblKullanici">
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="1" />
+          <End Role="tblBelgeler" Type="Self.tblBelgeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKullanici">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="tblBelgeler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblDemirbasTuru">
+          <End Role="tblDemirbasTuru" Type="Self.tblDemirbasTuru" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDemirbasTuru">
+              <PropertyRef Name="DemirbasTuruID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="DemirbasTuruID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblDepartman">
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartman">
+              <PropertyRef Name="DepartmanID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="DepartmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDemirbas_tblFakulte">
+          <End Role="tblFakulte" Type="Self.tblFakulte" Multiplicity="1" />
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFakulte">
+              <PropertyRef Name="FakulteID" />
+            </Principal>
+            <Dependent Role="tblDemirbas">
+              <PropertyRef Name="FakulteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOdaDemirbasAtama_tblDemirbas">
+          <End Role="tblDemirbas" Type="Self.tblDemirbas" Multiplicity="0..1" />
+          <End Role="tblOdaDemirbasAtama" Type="Self.tblOdaDemirbasAtama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDemirbas">
+              <PropertyRef Name="DemirbasID" />
+            </Principal>
+            <Dependent Role="tblOdaDemirbasAtama">
+              <PropertyRef Name="DemirbasID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDepartman_tblFakulte">
+          <End Role="tblFakulte" Type="Self.tblFakulte" Multiplicity="1" />
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFakulte">
+              <PropertyRef Name="FakulteID" />
+            </Principal>
+            <Dependent Role="tblDepartman">
+              <PropertyRef Name="FakulteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOda_tblDepartman">
+          <End Role="tblDepartman" Type="Self.tblDepartman" Multiplicity="1" />
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartman">
+              <PropertyRef Name="DepartmanID" />
+            </Principal>
+            <Dependent Role="tblOda">
+              <PropertyRef Name="DepartmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKullanici_tblPersonel">
+          <End Role="tblPersonel" Type="Self.tblPersonel" Multiplicity="1" />
+          <End Role="tblKullanici" Type="Self.tblKullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersonel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="tblKullanici">
+              <PropertyRef Name="PersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOda_tblPersonel">
+          <End Role="tblPersonel" Type="Self.tblPersonel" Multiplicity="0..1" />
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPersonel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="tblOda">
+              <PropertyRef Name="PersonelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOdaDemirbasAtama_tblOda">
+          <End Role="tblOda" Type="Self.tblOda" Multiplicity="0..1" />
+          <End Role="tblOdaDemirbasAtama" Type="Self.tblOdaDemirbasAtama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOda">
+              <PropertyRef Name="OdaID" />
+            </Principal>
+            <Dependent Role="tblOdaDemirbasAtama">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YazilimSinamaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tblBelgeler" EntityType="Self.tblBelgeler" />
+          <EntitySet Name="tblDemirbas" EntityType="Self.tblDemirbas" />
+          <EntitySet Name="tblDemirbasTuru" EntityType="Self.tblDemirbasTuru" />
+          <EntitySet Name="tblDepartman" EntityType="Self.tblDepartman" />
+          <EntitySet Name="tblFakulte" EntityType="Self.tblFakulte" />
+          <EntitySet Name="tblKullanici" EntityType="Self.tblKullanici" />
+          <EntitySet Name="tblOda" EntityType="Self.tblOda" />
+          <EntitySet Name="tblOdaDemirbasAtama" EntityType="Self.tblOdaDemirbasAtama" />
+          <EntitySet Name="tblPersonel" EntityType="Self.tblPersonel" />
+          <AssociationSet Name="FK_tblBelgeler_tblKullanici" Association="Self.FK_tblBelgeler_tblKullanici">
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+            <End Role="tblBelgeler" EntitySet="tblBelgeler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblDemirbasTuru" Association="Self.FK_tblDemirbas_tblDemirbasTuru">
+            <End Role="tblDemirbasTuru" EntitySet="tblDemirbasTuru" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblDepartman" Association="Self.FK_tblDemirbas_tblDepartman">
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDemirbas_tblFakulte" Association="Self.FK_tblDemirbas_tblFakulte">
+            <End Role="tblFakulte" EntitySet="tblFakulte" />
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOdaDemirbasAtama_tblDemirbas" Association="Self.FK_tblOdaDemirbasAtama_tblDemirbas">
+            <End Role="tblDemirbas" EntitySet="tblDemirbas" />
+            <End Role="tblOdaDemirbasAtama" EntitySet="tblOdaDemirbasAtama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDepartman_tblFakulte" Association="Self.FK_tblDepartman_tblFakulte">
+            <End Role="tblFakulte" EntitySet="tblFakulte" />
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOda_tblDepartman" Association="Self.FK_tblOda_tblDepartman">
+            <End Role="tblDepartman" EntitySet="tblDepartman" />
+            <End Role="tblOda" EntitySet="tblOda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKullanici_tblPersonel" Association="Self.FK_tblKullanici_tblPersonel">
+            <End Role="tblPersonel" EntitySet="tblPersonel" />
+            <End Role="tblKullanici" EntitySet="tblKullanici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOda_tblPersonel" Association="Self.FK_tblOda_tblPersonel">
+            <End Role="tblPersonel" EntitySet="tblPersonel" />
+            <End Role="tblOda" EntitySet="tblOda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOdaDemirbasAtama_tblOda" Association="Self.FK_tblOdaDemirbasAtama_tblOda">
+            <End Role="tblOda" EntitySet="tblOda" />
+            <End Role="tblOdaDemirbasAtama" EntitySet="tblOdaDemirbasAtama" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="YazilimSinamaModelStoreContainer" CdmEntityContainer="YazilimSinamaEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBelgeler">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblBelgeler">
+              <MappingFragment StoreEntitySet="tblBelgeler">
+                <ScalarProperty Name="BelgeID" ColumnName="BelgeID" />
+                <ScalarProperty Name="BelgeAdi" ColumnName="BelgeAdi" />
+                <ScalarProperty Name="BelgeOlusturulmaTarihi" ColumnName="BelgeOlusturulmaTarihi" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="BelgeYolu" ColumnName="BelgeYolu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDemirbas">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblDemirbas">
+              <MappingFragment StoreEntitySet="tblDemirbas">
+                <ScalarProperty Name="DemirbasID" ColumnName="DemirbasID" />
+                <ScalarProperty Name="DemirbasAdi" ColumnName="DemirbasAdi" />
+                <ScalarProperty Name="DemirbasKodu" ColumnName="DemirbasKodu" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="AlimTarihi" ColumnName="AlimTarihi" />
+                <ScalarProperty Name="DemirbasTuruID" ColumnName="DemirbasTuruID" />
+                <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDemirbasTuru">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblDemirbasTuru">
+              <MappingFragment StoreEntitySet="tblDemirbasTuru">
+                <ScalarProperty Name="DemirbasTuruID" ColumnName="DemirbasTuruID" />
+                <ScalarProperty Name="DemirbasTuruAdi" ColumnName="DemirbasTuruAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDepartman">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblDepartman">
+              <MappingFragment StoreEntitySet="tblDepartman">
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="DepartmanAdi" ColumnName="DepartmanAdi" />
+                <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFakulte">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblFakulte">
+              <MappingFragment StoreEntitySet="tblFakulte">
+                <ScalarProperty Name="FakulteID" ColumnName="FakulteID" />
+                <ScalarProperty Name="FakulteAdi" ColumnName="FakulteAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKullanici">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblKullanici">
+              <MappingFragment StoreEntitySet="tblKullanici">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="YetkiliID" ColumnName="YetkiliID" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOda">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblOda">
+              <MappingFragment StoreEntitySet="tblOda">
+                <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+                <ScalarProperty Name="OdaAdi" ColumnName="OdaAdi" />
+                <ScalarProperty Name="DepartmanID" ColumnName="DepartmanID" />
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOdaDemirbasAtama">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblOdaDemirbasAtama">
+              <MappingFragment StoreEntitySet="tblOdaDemirbasAtama">
+                <ScalarProperty Name="OdaDemirbasAtamaID" ColumnName="OdaDemirbasAtamaID" />
+                <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+                <ScalarProperty Name="DemirbasID" ColumnName="DemirbasID" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPersonel">
+            <EntityTypeMapping TypeName="YazilimSinamaModel.tblPersonel">
+              <MappingFragment StoreEntitySet="tblPersonel">
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="PersonelAdi" ColumnName="PersonelAdi" />
+                <ScalarProperty Name="PersonelSoyadi" ColumnName="PersonelSoyadi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,1 @@
+﻿DBCC CHECKIDENT ('dbo.tblKullanici', RESEED, 7)
