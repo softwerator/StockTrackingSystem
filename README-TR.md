@@ -1,0 +1,11 @@
+# Stok Takip Sistemi
+
+TIMERIN tarafından Visual Studio 2017 IDE'si aracılığıyla C# dili kullanılarak gerçekleştirilmiştir. 
+
+Üniversiteye ait fakültelerdeki demirbaş bilgilerini içeren, aynı zamanda demirbaşların üzerinde değişikliklerin yapılabildiği bir stok takip sistemidir.
+
+İşte geliştiriciler
+
+1- Emre Erin
+
+2- Burakcan Timuçin
